@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Loader from './Loader/Loader';
@@ -6,7 +6,6 @@ import Button from './Button/Button';
 import Modal from './Modal/Modal';
 import css from 'components/app.module.css';
 import { getUrlForPage } from 'consts/pixabay';
-import { nanoid } from 'nanoid';
 
 const App = () => {
   // Stan aplikacji
@@ -33,11 +32,6 @@ const App = () => {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        // Tworzenie nowej tablicy obrazków z unikalnymi kluczami
-        const newImages = data.hits.map((hit) => ({
-          ...hit,
-          id: nanoid(),
-        }));
         setImages((prevImages) => [...prevImages, ...data.hits]);
         setPage((prevPage) => prevPage + 1);
         setIsLoading(false);
